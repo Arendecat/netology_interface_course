@@ -1,16 +1,16 @@
 import UIKit
 
-class HabitCollectionViewCell: UICollectionViewCell {
-    override init(frame: CGRect) {
+class HabitCollectionViewCell: UICollectionViewCell{
+    override init(frame: CGRect){
         super.init(frame: frame)
         viewSetup()
     }
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
     
-    var habit: Habit? {
-        didSet {
+    var habit: Habit?{
+        didSet{
             habitTitleLabel.text = habit?.name
             let dateFormatter: DateFormatter = {
                 let formatter = DateFormatter()
@@ -22,7 +22,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             completionCounter.text = "Счетчик: \(habit!.trackDates.count)"
             habitTitleLabel.textColor = habit?.color
             completionCheck.layer.borderColor = habit!.color.cgColor
-            isChecked = habit!.isAlreadyTakenToday
             if (habit!.isAlreadyTakenToday) {
                 print("func1called for",habit!.name)
                 completionCheck.backgroundColor = habit?.color
@@ -31,8 +30,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
-    
     
     let habitTitleLabel: UILabel = {
         let title = UILabel()
@@ -57,9 +54,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         counter.font = .systemFont(ofSize: 13, weight: .medium)
         return counter
     }()
-    
-    var isChecked: Bool = false//unused
-    
+        
     var completionCheck: UIButton = {
         let check = UIButton()
         check.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +68,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }()
     
     @objc func checked(){
-        if (!habit!.isAlreadyTakenToday) {
+        if (!habit!.isAlreadyTakenToday){
             print("func2callled")
             completionCheck.backgroundColor = habit?.color
             completionCheck.setImage(UIImage(systemName: "checkmark"), for: .normal)
@@ -84,7 +79,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func viewSetup() {
+    private func viewSetup(){
         contentView.addSubview(habitTitleLabel)
         contentView.addSubview(habitTimeLabel)
         contentView.addSubview(completionCounter)
@@ -107,7 +102,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             
             completionCounter.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
             completionCounter.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 28),
-            completionCounter.rightAnchor.constraint(equalTo: completionCheck.leftAnchor, constant: -32),
+            completionCounter.rightAnchor.constraint(equalTo: completionCheck.leftAnchor, constant: -32)
         ])
     }
 }

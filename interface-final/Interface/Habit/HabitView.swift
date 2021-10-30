@@ -1,15 +1,16 @@
 import UIKit
 
-class HabitView: UIView {
-
+class HabitView: UIView{
     override init(frame: CGRect){
         super.init(frame: frame)
         viewSetup()
     }
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
 
+    var pickedDate: Date = Date()
+    
     let nameFieldLabel: UILabel = {
         let nameFieldLabel = UILabel()
         nameFieldLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,8 +53,6 @@ class HabitView: UIView {
         return timeLabel
     }()
     
-
-    
     let timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
         timePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -71,19 +70,9 @@ class HabitView: UIView {
         deleteButton.setTitle("Удалить привычку", for: .normal)
         return deleteButton
     }()
-
     
-    @objc func datePickerChanged(picker: UIDatePicker) {
+    @objc func datePickerChanged(picker: UIDatePicker){
         dateRefresh()
-    }
-    
-    func dateRefresh(){
-        pickedDate = timePicker.date
-        let fullString = "Каждый день в " + dateFormatter.string(from: pickedDate)
-        let attSetTime = NSMutableAttributedString(string: fullString)
-        let range: NSRange = attSetTime.mutableString.range(of: dateFormatter.string(from: pickedDate), options: .caseInsensitive)
-        attSetTime.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemBlue, range: range)
-        setTimeLabel.attributedText = attSetTime
     }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -93,7 +82,6 @@ class HabitView: UIView {
         return formatter
     }()
     
-    
     let setTimeLabel: UILabel = {
         let setLabel = UILabel()
         setLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -101,7 +89,14 @@ class HabitView: UIView {
         return setLabel
     }()
     
-    var pickedDate: Date = Date()
+    func dateRefresh(){
+        pickedDate = timePicker.date
+        let fullString = "Каждый день в " + dateFormatter.string(from: pickedDate)
+        let attSetTime = NSMutableAttributedString(string: fullString)
+        let range: NSRange = attSetTime.mutableString.range(of: dateFormatter.string(from: pickedDate), options: .caseInsensitive)
+        attSetTime.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemBlue, range: range)
+        setTimeLabel.attributedText = attSetTime
+    }
     
     private func viewSetup() {
         self.backgroundColor = .systemBackground
@@ -113,7 +108,6 @@ class HabitView: UIView {
         self.addSubview(setTimeLabel)
         self.addSubview(timePicker)
         self.addSubview(deleteButton)
-
         dateRefresh()
 
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +141,7 @@ class HabitView: UIView {
             
             deleteButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
             deleteButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16)
         ])
     }
 }

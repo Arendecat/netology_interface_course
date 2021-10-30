@@ -1,10 +1,8 @@
 import UIKit
 
-class InfoViewController: UIViewController {
-
+class InfoViewController: UIViewController{
     let mainView = UIScrollView()
     let supView = UIView()
-    
     
     let titleView: UILabel = {
         let title = UILabel()
@@ -22,15 +20,14 @@ class InfoViewController: UIViewController {
         return text
     }()
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         self.title = "Информация"
-        
         view.addSubview(mainView)
-        mainView.translatesAutoresizingMaskIntoConstraints = false
         mainView.addSubview(supView)
         supView.addSubview(textView)
         supView.addSubview(titleView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         supView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

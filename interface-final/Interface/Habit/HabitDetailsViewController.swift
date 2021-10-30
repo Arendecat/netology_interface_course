@@ -1,28 +1,26 @@
 import UIKit
 
-class HabitDetailsViewController: UIViewController {
+class HabitDetailsViewController: UIViewController{
     
     private let habit: Habit
     private let index: Int
     
-    init(habit: Habit, index: Int) {
+    init(habit: Habit, index: Int){
         self.habit = habit
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
     
     let table = UITableView(frame: .zero, style: .plain)
     
-    @objc func editHabit() {
+    @objc func editHabit(){
         let controller = UINavigationController(rootViewController: HabitViewController(habitsIndex: index))
         controller.modalPresentationStyle = .fullScreen
         controller.modalTransitionStyle = .crossDissolve
         controller.navigationBar.prefersLargeTitles = false
-//        controller.navigationBar.isTranslucent = true
         controller.navigationBar.backgroundColor = .systemBackground
         self.present(controller, animated: true, completion: nil)
         print("details")
@@ -30,12 +28,11 @@ class HabitDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editHabit)), animated: true)
         self.title = habit.name
-        
         view.addSubview(table)
         table.dataSource = self
+        
         table.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -46,8 +43,8 @@ class HabitDetailsViewController: UIViewController {
     }
 }
 
-extension HabitDetailsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+extension HabitDetailsViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = UITableViewCell()
         let df = DateFormatter()
         df.dateStyle = .long
@@ -57,10 +54,7 @@ extension HabitDetailsViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return habit.trackDates.count
     }
-    
-    
-    
 }

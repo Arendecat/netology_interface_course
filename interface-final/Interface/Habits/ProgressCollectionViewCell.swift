@@ -1,16 +1,16 @@
 import UIKit
 
-class ProgressCollectionViewCell: UICollectionViewCell {
-    override init(frame: CGRect) {
+class ProgressCollectionViewCell: UICollectionViewCell{
+    override init(frame: CGRect){
         super.init(frame: frame)
         viewSetup()
     }
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
     
-    var store: HabitsStore? {
-        didSet {
+    var store: HabitsStore?{
+        didSet{
             progressBar.progress = store!.todayProgress
             progressPercent.text = String(Int(round(store!.todayProgress * 100))) + "%"
         }
@@ -41,11 +41,10 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         pBar.layer.cornerRadius = 3
         pBar.layer.masksToBounds = true
         pBar.backgroundColor = .systemGray5
-//        pBar.progress = HabitsStore.shared.todayProgress
         return pBar
     }()
     
-    private func viewSetup() {
+    private func viewSetup(){
         contentView.addSubview(motivationLabel)
         contentView.addSubview(progressPercent)
         contentView.addSubview(progressBar)
