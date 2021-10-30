@@ -3,9 +3,11 @@ import UIKit
 class HabitDetailsViewController: UIViewController {
     
     private let habit: Habit
+    private let index: Int
     
-    init(habit: Habit) {
+    init(habit: Habit, index: Int) {
         self.habit = habit
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -16,12 +18,14 @@ class HabitDetailsViewController: UIViewController {
     let table = UITableView(frame: .zero, style: .plain)
     
     @objc func editHabit() {
-        let controller = UINavigationController(rootViewController: HabitViewController())
+        let controller = UINavigationController(rootViewController: HabitViewController(habitsIndex: index))
         controller.modalPresentationStyle = .fullScreen
         controller.modalTransitionStyle = .crossDissolve
         controller.navigationBar.prefersLargeTitles = false
-        controller.navigationBar.isTranslucent = true
+//        controller.navigationBar.isTranslucent = true
+        controller.navigationBar.backgroundColor = .systemBackground
         self.present(controller, animated: true, completion: nil)
+        print("details")
     }
     
     override func viewDidLoad() {
@@ -37,7 +41,7 @@ class HabitDetailsViewController: UIViewController {
             table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             table.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             table.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -46,8 +50,9 @@ extension HabitDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let df = DateFormatter()
-        df.dateFormat = "dd MMMM yyyy"
-        //df.doesRelativeDateFormatting = true // почему не работает???
+        df.dateStyle = .long
+        df.locale = Locale(identifier: "ru_RU")
+        df.doesRelativeDateFormatting = true
         cell.textLabel?.text = df.string(from: habit.trackDates[indexPath.row])
         return cell
     }

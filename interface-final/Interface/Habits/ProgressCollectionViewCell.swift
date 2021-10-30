@@ -5,9 +5,15 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         viewSetup()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    var store: HabitsStore? {
+        didSet {
+            progressBar.progress = store!.todayProgress
+            progressPercent.text = String(Int(round(store!.todayProgress * 100))) + "%"
+        }
     }
     
     let motivationLabel: UILabel = {
@@ -31,7 +37,11 @@ class ProgressCollectionViewCell: UICollectionViewCell {
        let pBar = UIProgressView()
         pBar.translatesAutoresizingMaskIntoConstraints = false
         pBar.progressViewStyle = .bar
-        pBar.progress = HabitsStore.shared.todayProgress
+        pBar.tintColor = .systemBlue
+        pBar.layer.cornerRadius = 3
+        pBar.layer.masksToBounds = true
+        pBar.backgroundColor = .systemGray5
+//        pBar.progress = HabitsStore.shared.todayProgress
         return pBar
     }()
     
@@ -39,6 +49,8 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(motivationLabel)
         contentView.addSubview(progressPercent)
         contentView.addSubview(progressBar)
+        contentView.layer.cornerRadius = 10
+        contentView.backgroundColor = .systemBackground
         
         NSLayoutConstraint.activate([
             motivationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -48,10 +60,10 @@ class ProgressCollectionViewCell: UICollectionViewCell {
             progressPercent.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             progressPercent.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
-            progressBar.topAnchor.constraint(equalTo: motivationLabel.bottomAnchor, constant: 16),
             progressBar.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             progressBar.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            progressBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            progressBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            progressBar.heightAnchor.constraint(equalToConstant: 5)
         ])
     }
 }

@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  interface-final
-//
-//  Created by Danislav on 22.07.2021.
-//
-
 import UIKit
 
 @main

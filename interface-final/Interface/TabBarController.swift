@@ -3,9 +3,9 @@ import UIKit
 class TestTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
         UITabBar.appearance().barTintColor = .systemBackground
+        
         tabBar.tintColor = .label
         controllerSetup()
     }
@@ -26,8 +26,6 @@ class TestTabBarController: UITabBarController, UITabBarControllerDelegate {
         rootViewController.navigationItem.title = title
         return navController
     }
-
-    
 }
 
 
