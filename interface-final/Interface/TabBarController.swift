@@ -4,8 +4,7 @@ class TestTabBarController: UITabBarController, UITabBarControllerDelegate{
     override func viewDidLoad(){
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        UITabBar.appearance().barTintColor = .systemBackground
-        tabBar.tintColor = .label
+        UITabBar.appearance().barTintColor = .systemBackground        
         controllerSetup()
     }
 
@@ -20,12 +19,7 @@ class TestTabBarController: UITabBarController, UITabBarControllerDelegate{
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
-        navController.navigationBar.prefersLargeTitles = false
-        navController.navigationBar.isTranslucent = true
         rootViewController.navigationItem.title = title
         return navController
     }
 }
-
-
-

@@ -18,7 +18,6 @@ class HabitsViewController: UIViewController{
         controller.modalPresentationStyle = .fullScreen
         controller.modalTransitionStyle = .crossDissolve
         controller.navigationBar.prefersLargeTitles = false
-        controller.navigationBar.backgroundColor = .systemBackground
         self.present(controller, animated: true, completion: nil)
     }
     
@@ -26,9 +25,15 @@ class HabitsViewController: UIViewController{
         super.viewDidLoad()
         self.navigationController?.title = "Привычки"
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit)), animated: true)
                 
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+
+        
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -37,7 +42,6 @@ class HabitsViewController: UIViewController{
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -45,7 +49,7 @@ class HabitsViewController: UIViewController{
         collectionView.reloadData()
     }
 }
-//MARK: - DELEGATE
+
 extension HabitsViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if (indexPath.row != 0){
@@ -57,9 +61,6 @@ extension HabitsViewController: UICollectionViewDelegate{
 }
 
 extension HabitsViewController: UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int{
-        1
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return HabitsStore.shared.habits.count + 1
@@ -68,7 +69,7 @@ extension HabitsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         if (indexPath.row == 0){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
-            cell.store = HabitsStore.shared
+            cell.update()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell

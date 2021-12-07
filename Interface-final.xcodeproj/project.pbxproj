@@ -94,8 +94,6 @@
 				7883F0C926EF64BC003B9B7C /* Interface */,
 				7883F0C826EF64AE003B9B7C /* Logic */,
 				7883F0C726EF6470003B9B7C /* AppSupport */,
-				786907FD26A9C33D00C053FA /* Assets.xcassets */,
-				7869080226A9C33D00C053FA /* Info.plist */,
 			);
 			path = "interface-final";
 			sourceTree = "<group>";
@@ -106,6 +104,8 @@
 				786907F426A9C33700C053FA /* AppDelegate.swift */,
 				786907F626A9C33700C053FA /* SceneDelegate.swift */,
 				7883F0C526EE0F5D003B9B7C /* LaunchScreen.storyboard */,
+				7869080226A9C33D00C053FA /* Info.plist */,
+				786907FD26A9C33D00C053FA /* Assets.xcassets */,
 			);
 			path = AppSupport;
 			sourceTree = "<group>";
@@ -338,7 +338,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38M5R6N3T2;
-				INFOPLIST_FILE = "interface-final/Info.plist";
+				INFOPLIST_FILE = "/Users/srs/Documents/SS/iOS developer/5/course/interface-final/interface-final/AppSupport/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,7 +357,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38M5R6N3T2;
-				INFOPLIST_FILE = "interface-final/Info.plist";
+				INFOPLIST_FILE = "/Users/srs/Documents/SS/iOS developer/5/course/interface-final/interface-final/AppSupport/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

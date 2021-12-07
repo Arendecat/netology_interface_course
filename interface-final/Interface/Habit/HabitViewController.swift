@@ -4,6 +4,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 	init(habitsIndex: Int?){
 		super.init(nibName: nil, bundle: nil)
 		self.habitsIndex = habitsIndex
+		
 	}
 	required init?(coder: NSCoder){
 		fatalError("init(coder:) has not been implemented")
@@ -12,7 +13,8 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 	var calledHabit: Habit? = nil
 	var habitsIndex: Int?
     let habitView = HabitView()
-
+	weak var delegate: HabitDelegate?
+	
 	override func viewWillLayoutSubviews(){
 		super.viewWillLayoutSubviews()
 		habitView.frame = view.frame
@@ -26,14 +28,16 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 		calledHabit!.name = habitView.nameField.text!
 		calledHabit!.color = habitView.colorPicker.backgroundColor!
 		calledHabit!.date = habitView.timePicker.date
+		HabitsStore.shared.habits[habitsIndex!].name = habitView.nameField.text!
+		HabitsStore.shared.habits[habitsIndex!].color = habitView.colorPicker.backgroundColor!
+		HabitsStore.shared.habits[habitsIndex!].date = habitView.timePicker.date
 		exitVC()
 	}
 	
 	@objc func deleteHabit(){
 		HabitsStore.shared.habits.remove(at: habitsIndex!)
 		exitVC()
-//		self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//		self.navigationController!.popToRootViewController(animated: true)            //баг 2
+		delegate?.exitDetails()
 	}
 	
 	@objc func addHabit(){
@@ -70,9 +74,9 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
 		let text = (habitView.nameField.text! as NSString).replacingCharacters(in: range, with: string)
 		if !text.isEmpty{
-			self.navigationItem.leftBarButtonItem?.isEnabled = true
+			self.navigationItem.rightBarButtonItem?.isEnabled = true
 		} else {
-			self.navigationItem.leftBarButtonItem?.isEnabled = false
+			self.navigationItem.rightBarButtonItem?.isEnabled = false
 		}
 		return true
 	}
@@ -93,8 +97,8 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 		habitView.nameField.delegate = self
 		habitView.colorPicker.addTarget(self, action: #selector(pickColor), for: .touchUpInside)
 		habitView.deleteButton.addTarget(self, action: #selector(deleteConfirm), for: .touchUpInside)
-		self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitVC)), animated: true)
-		if (habitView.nameField.text=="") {self.navigationItem.leftBarButtonItem?.isEnabled = false}
+		self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitVC)), animated: true)
+		if (habitView.nameField.text=="") {self.navigationItem.rightBarButtonItem?.isEnabled = false}
 		
 		if (habitsIndex != nil){
 			calledHabit = HabitsStore.shared.habits[habitsIndex!]
@@ -104,10 +108,10 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 			habitView.nameField.text = calledHabit!.name
 			habitView.dateRefresh()
 			self.title = "Править"
-			self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editHabit)), animated: true)
+			self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editHabit)), animated: true)
 		} else {
-			self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addHabit)), animated: true)
-			self.navigationItem.leftBarButtonItem?.isEnabled = false
+			self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addHabit)), animated: true)
+			self.navigationItem.rightBarButtonItem?.isEnabled = false
 		}
 	}
 }

@@ -11,6 +11,7 @@ class HabitView: UIView{
 
     var pickedDate: Date = Date()
     
+    
     let nameFieldLabel: UILabel = {
         let nameFieldLabel = UILabel()
         nameFieldLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +24,8 @@ class HabitView: UIView{
         let nameField = UITextField()
         nameField.translatesAutoresizingMaskIntoConstraints = false
         nameField.placeholder = "Бегать по утрам, спать 8 часов, и т.п."
+        nameField.textColor = .systemBlue
+        nameField.font = .systemFont(ofSize: 17, weight: .regular)
         return nameField
     }()
     
@@ -37,7 +40,7 @@ class HabitView: UIView{
     let colorPicker: UIButton = {
         let colorPicker = UIButton()
         colorPicker.translatesAutoresizingMaskIntoConstraints = false
-        colorPicker.backgroundColor = .systemBlue
+        colorPicker.backgroundColor = UIColor.init(named: "AccentColor")
         colorPicker.layer.cornerRadius = 16
         colorPicker.heightAnchor.constraint(equalToConstant: colorPicker.layer.cornerRadius*2).isActive = true
         colorPicker.widthAnchor.constraint(equalTo: colorPicker.heightAnchor).isActive = true
@@ -94,7 +97,7 @@ class HabitView: UIView{
         let fullString = "Каждый день в " + dateFormatter.string(from: pickedDate)
         let attSetTime = NSMutableAttributedString(string: fullString)
         let range: NSRange = attSetTime.mutableString.range(of: dateFormatter.string(from: pickedDate), options: .caseInsensitive)
-        attSetTime.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemBlue, range: range)
+        attSetTime.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.init(named: "AccentColor")!, range: range)
         setTimeLabel.attributedText = attSetTime
     }
     

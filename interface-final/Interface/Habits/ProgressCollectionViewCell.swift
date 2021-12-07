@@ -3,33 +3,32 @@ import UIKit
 class ProgressCollectionViewCell: UICollectionViewCell{
     override init(frame: CGRect){
         super.init(frame: frame)
+        update()
         viewSetup()
     }
     required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
     
-    var store: HabitsStore?{
-        didSet{
-            progressBar.progress = store!.todayProgress
-            progressPercent.text = String(Int(round(store!.todayProgress * 100))) + "%"
-        }
+    public func update(){
+        progressBar.progress = HabitsStore.shared.todayProgress
+        progressPercent.text = String(Int(round(HabitsStore.shared.todayProgress * 100))) + "%"
     }
     
     let motivationLabel: UILabel = {
         let mLabel = UILabel()
         mLabel.translatesAutoresizingMaskIntoConstraints = false
         mLabel.text = "Все получится!"
-        mLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        mLabel.textColor = .lightGray
+        mLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        mLabel.textColor = .systemGray
         return mLabel
     }()
     
     let progressPercent: UILabel = {
         let pPercent = UILabel()
         pPercent.translatesAutoresizingMaskIntoConstraints = false
-        pPercent.font = .systemFont(ofSize: 13, weight: .semibold)
-        pPercent.textColor = .lightGray
+        pPercent.font = .systemFont(ofSize: 13, weight: .regular)
+        pPercent.textColor = .systemGray
         return pPercent
     }()
     
@@ -37,7 +36,6 @@ class ProgressCollectionViewCell: UICollectionViewCell{
        let pBar = UIProgressView()
         pBar.translatesAutoresizingMaskIntoConstraints = false
         pBar.progressViewStyle = .bar
-        pBar.tintColor = .systemBlue
         pBar.layer.cornerRadius = 3
         pBar.layer.masksToBounds = true
         pBar.backgroundColor = .systemGray5

@@ -23,10 +23,11 @@ class HabitCollectionViewCell: UICollectionViewCell{
             habitTitleLabel.textColor = habit?.color
             completionCheck.layer.borderColor = habit!.color.cgColor
             if (habit!.isAlreadyTakenToday) {
-                print("func1called for",habit!.name)
                 completionCheck.backgroundColor = habit?.color
                 completionCheck.setImage(UIImage(systemName: "checkmark"), for: .normal)
                 completionCheck.tintColor = .systemBackground
+            } else {
+                completionCheck.backgroundColor = .systemBackground
             }
         }
     }
@@ -55,7 +56,7 @@ class HabitCollectionViewCell: UICollectionViewCell{
         return counter
     }()
         
-    var completionCheck: UIButton = {
+    lazy var completionCheck: UIButton = {
         let check = UIButton()
         check.translatesAutoresizingMaskIntoConstraints = false
         check.layer.cornerRadius = 16
@@ -69,7 +70,6 @@ class HabitCollectionViewCell: UICollectionViewCell{
     
     @objc func checked(){
         if (!habit!.isAlreadyTakenToday){
-            print("func2callled")
             completionCheck.backgroundColor = habit?.color
             completionCheck.setImage(UIImage(systemName: "checkmark"), for: .normal)
             completionCheck.tintColor = .systemBackground
