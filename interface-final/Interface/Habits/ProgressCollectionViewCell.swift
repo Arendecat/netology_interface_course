@@ -48,7 +48,6 @@ class ProgressCollectionViewCell: UICollectionViewCell{
         contentView.addSubview(progressBar)
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .systemBackground
-        
         NSLayoutConstraint.activate([
             motivationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             motivationLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),

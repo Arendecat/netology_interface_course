@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 class HabitsViewController: UIViewController{
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -26,14 +24,11 @@ class HabitsViewController: UIViewController{
         self.navigationController?.title = "Привычки"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit)), animated: true)
-                
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-
-        
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -43,7 +38,6 @@ class HabitsViewController: UIViewController{
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(true)
         collectionView.reloadData()
@@ -61,11 +55,9 @@ extension HabitsViewController: UICollectionViewDelegate{
 }
 
 extension HabitsViewController: UICollectionViewDataSource{
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return HabitsStore.shared.habits.count + 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         if (indexPath.row == 0){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
@@ -79,8 +71,6 @@ extension HabitsViewController: UICollectionViewDataSource{
     }
 }
 
-
-
 extension HabitsViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         if (indexPath.row == 0){
@@ -89,15 +79,12 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout{
             return CGSize(width: collectionView.frame.width - 32, height: 128)
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat{
         return 16
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat{
         return 16
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
         return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }

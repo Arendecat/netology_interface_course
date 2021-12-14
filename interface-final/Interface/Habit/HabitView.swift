@@ -11,7 +11,6 @@ class HabitView: UIView{
 
     var pickedDate: Date = Date()
     
-    
     let nameFieldLabel: UILabel = {
         let nameFieldLabel = UILabel()
         nameFieldLabel.translatesAutoresizingMaskIntoConstraints = false

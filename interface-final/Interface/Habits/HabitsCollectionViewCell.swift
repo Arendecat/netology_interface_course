@@ -86,7 +86,6 @@ class HabitCollectionViewCell: UICollectionViewCell{
         contentView.addSubview(completionCheck)
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .systemBackground
-        
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: 128),
             completionCheck.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

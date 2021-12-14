@@ -12,7 +12,7 @@ class TestTabBarController: UITabBarController, UITabBarControllerDelegate{
         viewControllers = [
             createNavController(for: HabitsViewController(), title: "Сегодня", image: UIImage(systemName: "rectangle.grid.1x2.fill")!),
             createNavController(for: InfoViewController(), title: "Информация", image: UIImage(systemName: "info.circle.fill")!)
-            ]
+        ]
     }
 
     private func createNavController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController{

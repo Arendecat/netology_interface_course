@@ -4,7 +4,6 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 	init(habitsIndex: Int?){
 		super.init(nibName: nil, bundle: nil)
 		self.habitsIndex = habitsIndex
-		
 	}
 	required init?(coder: NSCoder){
 		fatalError("init(coder:) has not been implemented")
@@ -34,12 +33,6 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 		exitVC()
 	}
 	
-	@objc func deleteHabit(){
-		HabitsStore.shared.habits.remove(at: habitsIndex!)
-		exitVC()
-		delegate?.exitDetails()
-	}
-	
 	@objc func addHabit(){
 		let addedHabit = Habit(
 			name: habitView.nameField.text!,
@@ -65,6 +58,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 		let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) {_ in
 			HabitsStore.shared.habits.remove(at: self.habitsIndex!)
 			self.exitVC()
+			self.delegate?.exitDetails()
 		}
 		alertController.addAction(cancelAction)
 		alertController.addAction(deleteAction)
@@ -86,20 +80,17 @@ class HabitViewController: UIViewController, UITextFieldDelegate{
 		self.title = "Добавить"
 		view.backgroundColor = .systemBackground
 		view.addSubview(habitView)
-		
 		NSLayoutConstraint.activate([
 			habitView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			habitView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
 			habitView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
 			habitView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		])
-		
 		habitView.nameField.delegate = self
 		habitView.colorPicker.addTarget(self, action: #selector(pickColor), for: .touchUpInside)
 		habitView.deleteButton.addTarget(self, action: #selector(deleteConfirm), for: .touchUpInside)
 		self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitVC)), animated: true)
 		if (habitView.nameField.text=="") {self.navigationItem.rightBarButtonItem?.isEnabled = false}
-		
 		if (habitsIndex != nil){
 			calledHabit = HabitsStore.shared.habits[habitsIndex!]
 			habitView.deleteButton.isHidden = false
